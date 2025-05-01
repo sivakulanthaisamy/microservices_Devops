@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-{{ "product" }}
+spec:
+  replicas: {{ .Values.productService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-{{ "product" }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-{{ "product" }}
+    spec:
+      containers:
+        - name: {{ "product" }}
+          image: {{ .Values.productService.image }}
+          ports:
+            - containerPort: {{ .Values.productService.port }}
